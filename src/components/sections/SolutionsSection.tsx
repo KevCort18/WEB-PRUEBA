@@ -53,28 +53,28 @@ const solutions: Solution[] = [
 
 export function SolutionsSection() {
   return (
-    <section id="soluciones" className="px-4 py-10 @container">
-      <div className="flex flex-col gap-4 mb-10">
+    <section id="soluciones" className="py-16 md:py-24 px-4 @container">
+      <div className="flex flex-col gap-4 mb-12 md:mb-16">
         <h1
-          className="text-foreground tracking-light text-[32px] font-bold leading-tight @[480px]:text-4xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em] max-w-[720px]"
+          className="text-foreground tracking-tight text-3xl md:text-4xl font-bold leading-tight text-center"
         >
           Soluciones de IA a Medida
         </h1>
-        <p className="text-foreground text-base font-normal leading-normal max-w-[720px]">
+        <p className="text-muted-foreground text-lg font-normal leading-relaxed text-center max-w-3xl mx-auto">
           Ofrecemos una gama de soluciones de IA diseñadas para satisfacer las necesidades únicas de su negocio.
         </p>
       </div>
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3">
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6">
         {solutions.map((solution) => (
-          <Card key={solution.title} className="flex flex-1 flex-col gap-3 rounded-lg border-border bg-card p-4">
-            <CardHeader className="p-0"> {/* Adjusted padding for header */}
-              <div className="text-primary"> {/* Icon color from theme */}
-                <solution.icon className="h-6 w-6" /> {/* Using 24px from HTML */}
+          <Card key={solution.title} className="flex flex-1 flex-col gap-4 rounded-xl border-border bg-card p-6 shadow-lg hover:shadow-primary/20 transition-shadow duration-300">
+            <CardHeader className="p-0">
+              <div className="text-primary mb-2">
+                <solution.icon className="h-8 w-8" />
               </div>
             </CardHeader>
-            <CardContent className="flex flex-col gap-1 p-0"> {/* Adjusted padding for content */}
-              <CardTitle className="text-foreground text-base font-bold leading-tight">{solution.title}</CardTitle>
-              <CardDescription className="text-muted-foreground text-sm font-normal leading-normal">
+            <CardContent className="flex flex-col gap-1 p-0">
+              <CardTitle className="text-foreground text-xl font-bold leading-tight mb-1">{solution.title}</CardTitle>
+              <CardDescription className="text-muted-foreground text-base font-normal leading-relaxed">
                 {solution.description}
               </CardDescription>
             </CardContent>

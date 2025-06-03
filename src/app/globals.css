@@ -4,25 +4,25 @@
 
 @layer base {
   :root {
-    --background: 213 14% 10%; /* #15191e */
-    --foreground: 0 0% 98%; /* white */
-    --card: 212 14% 15%; /* #20262c */
-    --card-foreground: 0 0% 98%; /* white */
-    --popover: 212 14% 15%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 212 38% 80%; /* #b7cbe0 CTA background */
-    --primary-foreground: 213 14% 10%; /* dark text for CTA */
-    --secondary: 212 14% 20%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 212 14% 25%; 
-    --muted-foreground: 210 17% 67%; /* #a0adba light gray text */
-    --accent: 212 38% 75%; /* CTA hover */
-    --accent-foreground: 213 14% 10%;
+    --background: 200 10% 6%; /* Very dark blue-gray */
+    --foreground: 200 10% 95%; /* Off-white */
+    --card: 200 10% 10%;
+    --card-foreground: 200 10% 95%;
+    --popover: 200 10% 10%;
+    --popover-foreground: 200 10% 95%;
+    --primary: 180 50% 70%; /* A soft teal for CTAs */
+    --primary-foreground: 200 10% 10%; /* Dark text for teal CTAs */
+    --secondary: 200 10% 15%;
+    --secondary-foreground: 200 10% 95%;
+    --muted: 200 10% 20%; 
+    --muted-foreground: 200 10% 60%; /* Lighter gray for muted text */
+    --accent: 180 50% 60%; /* Darker teal for hover */
+    --accent-foreground: 200 10% 10%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
-    --border: 214 17% 30%; /* #404c59 card border */
-    --input: 214 16% 21%; /* #2d353e input background */
-    --ring: 212 38% 60%; /* focus ring */
+    --border: 200 10% 25%; /* Softer border */
+    --input: 200 10% 18%;
+    --ring: 180 50% 50%; /* Focus ring */
     --radius: 0.5rem;
 
     --chart-1: 12 76% 61%;
@@ -31,17 +31,16 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     
-    --sidebar-background: 213 14% 8%;
-    --sidebar-foreground: 0 0% 90%;
-    --sidebar-primary: 212 38% 70%;
-    --sidebar-primary-foreground: 213 14% 10%;
-    --sidebar-accent: 212 14% 12%;
-    --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 214 17% 25%;
-    --sidebar-ring: 212 38% 50%;
+    --sidebar-background: 200 10% 5%; /* Adjusted for new theme */
+    --sidebar-foreground: 200 10% 90%;
+    --sidebar-primary: 180 50% 65%;
+    --sidebar-primary-foreground: 200 10% 10%;
+    --sidebar-accent: 200 10% 9%;
+    --sidebar-accent-foreground: 200 10% 95%;
+    --sidebar-border: 200 10% 20%;
+    --sidebar-ring: 180 50% 45%;
   }
 
-  /* No .dark class needed as dark theme is default */
 }
 
 @layer base {

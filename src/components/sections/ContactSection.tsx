@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input'; // Keep ShadCN Input
+import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
@@ -77,33 +77,29 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contacto" className="px-4 py-3">
-      <h2 className="text-foreground text-[22px] font-bold leading-tight tracking-[-0.015em] pb-3 pt-2"> {/* Adjusted pt from pt-5 */}
+    <section id="contacto" className="py-16 md:py-24 px-4">
+      <h2 className="text-foreground text-3xl md:text-4xl font-bold leading-tight tracking-[-0.015em] text-center mb-12">
         Contacto
       </h2>
       
       {!isEmailSubmitted ? (
-        // Using a div for layout to match HTML structure if needed, but form is fine
-        <form onSubmit={handleEmailSubmit} className="max-w-[480px] flex flex-col sm:flex-row items-end gap-4">
-          <label className="flex flex-col min-w-40 flex-1">
+        <form onSubmit={handleEmailSubmit} className="max-w-md mx-auto flex flex-col sm:flex-row items-end gap-4 mb-12">
+          <div className="flex-1 w-full sm:w-auto">
+            <Label htmlFor="initial-email" className="sr-only">Su Correo Electrónico</Label>
             <Input
+              id="initial-email"
               type="email"
               placeholder="Su Correo Electrónico"
-              // Apply classes similar to HTML: rounded-xl, bg-input, text-foreground, placeholder:text-muted-foreground, h-14, p-4
               className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-foreground focus:outline-0 focus:ring-0 border-none bg-input focus:border-none h-14 placeholder:text-muted-foreground p-4 text-base font-normal leading-normal"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               aria-label="Su Correo Electrónico"
               disabled={isLoading}
             />
-          </label>
-          {/* This button is part of the initial email submission step in current logic, 
-              HTML implies a single "Enviar" button. We'll keep the two-step logic for now.
-              The "Continuar" text and its button will show. The HTML's "Enviar" button appears later.
-          */}
+          </div>
            <Button 
               type="submit"
-              className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground text-sm font-bold leading-normal tracking-[0.015em]"
+              className="flex w-full sm:w-auto min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 sm:h-14 px-6 bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground text-base font-bold leading-normal tracking-[0.015em]"
               disabled={isLoading}
             >
               {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
@@ -111,20 +107,20 @@ export function ContactSection() {
             </Button>
         </form>
       ) : (
-        <form onSubmit={handleFullFormSubmit} className="max-w-xl mx-auto space-y-6">
+        <form onSubmit={handleFullFormSubmit} className="max-w-xl mx-auto space-y-8">
           <div>
-            <p className="text-muted-foreground mb-1">Correo electrónico:</p>
-            <p className="font-semibold text-foreground">{email}</p>
+            <p className="text-muted-foreground mb-1 text-sm">Correo electrónico:</p>
+            <p className="font-semibold text-foreground text-lg">{email}</p>
           </div>
 
           <div>
-            <Label htmlFor="projectDetails" className="block text-sm font-medium text-muted-foreground mb-1">
+            <Label htmlFor="projectDetails" className="block text-base font-medium text-muted-foreground mb-2">
               Cuéntanos más sobre tu proyecto (opcional):
             </Label>
             <Textarea
               id="projectDetails"
               placeholder="Describe brevemente tu idea, necesidades o el problema que buscas resolver..."
-              className="bg-input text-foreground placeholder:text-muted-foreground rounded-md text-base min-h-[120px]"
+              className="bg-input text-foreground placeholder:text-muted-foreground rounded-xl text-base min-h-[150px] p-4"
               value={projectDetails}
               onChange={(e) => setProjectDetails(e.target.value)}
               disabled={preferDirectContact || isLoading}
@@ -132,32 +128,33 @@ export function ContactSection() {
             />
           </div>
 
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-3">
             <Checkbox
               id="preferDirectContact"
               checked={preferDirectContact}
               onCheckedChange={(checked) => setPreferDirectContact(checked as boolean)}
               disabled={isLoading}
               aria-label="Prefiero que me contacten para brindar esta información"
+              className="h-5 w-5"
             />
-            <Label htmlFor="preferDirectContact" className="text-sm text-muted-foreground cursor-pointer">
+            <Label htmlFor="preferDirectContact" className="text-base text-muted-foreground cursor-pointer">
               Prefiero que me contacten para brindar esta información.
             </Label>
           </div>
           
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <Button 
               type="button"
               variant="outline"
               onClick={handleBackToEmail}
-              className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 text-sm font-bold leading-normal tracking-[0.015em]"
+              className="flex flex-1 min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 text-base font-bold leading-normal tracking-[0.015em]"
               disabled={isLoading}
             >
               Modificar Email
             </Button>
             <Button 
               type="submit"
-              className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground text-sm font-bold leading-normal tracking-[0.015em]"
+              className="flex flex-1 min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground text-base font-bold leading-normal tracking-[0.015em]"
               disabled={isLoading}
             >
               {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
@@ -166,9 +163,6 @@ export function ContactSection() {
           </div>
         </form>
       )}
-       {/* The single "Enviar" button from HTML would appear here if we didn't have the two-step logic.
-          For now, the "Continuar" and "Enviar Solicitud" buttons handle the flow.
-       */}
     </section>
   );
 }

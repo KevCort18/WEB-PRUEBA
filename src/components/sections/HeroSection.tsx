@@ -7,9 +7,8 @@ export function HeroSection() {
   return (
     <section 
       id="inicio" 
-      className="w-full relative flex items-center justify-center text-center text-foreground overflow-hidden @container min-h-[480px] md:min-h-[calc(100vh-4rem)]"
+      className="w-full relative flex items-center justify-center text-center text-foreground overflow-hidden @container min-h-[480px] md:min-h-[calc(100vh-5rem)]" // 5rem for h-20 header
     >
-      {/* Main div for background image and gradient, matches HTML structure for direct styling */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
@@ -19,21 +18,21 @@ export function HeroSection() {
       >
       </div>
       
-      {/* Content container - matches HTML structure for padding and responsive text */}
-      <div className="relative z-10 flex flex-col gap-2 text-left items-start justify-end p-4 pb-10 @[480px]:px-10 @[480px]:gap-8 w-full max-w-[960px] mx-auto">
+      <div className="relative z-10 flex flex-col gap-6 @[480px]:gap-8 text-center items-center justify-center p-8 md:p-12 lg:p-16 w-full max-w-[960px] mx-auto">
         <h1
-          className="text-foreground text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl"
+          className="text-foreground text-5xl font-black leading-tight tracking-[-0.033em] @[480px]:text-6xl lg:text-7xl"
         >
           Soluciones de IA para Pequeñas y Medianas Empresas
         </h1>
         <h2 
-          className="text-foreground text-sm font-normal leading-normal @[480px]:text-base"
+          className="text-foreground/90 text-lg font-normal leading-normal @[480px]:text-xl max-w-3xl"
         >
           HephaCode empodera a las empresas desatendidas con desarrollo ágil de IA, entregando valor desde la primera interacción.
         </h2>
         <Button 
           asChild 
-          className="min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base"
+          size="lg"
+          className="mt-8 min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 @[480px]:h-14 px-6 @[480px]:px-8 bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground text-base @[480px]:text-lg font-bold leading-normal tracking-[0.015em]"
         >
           <Link href="#contacto">Comenzar</Link>
         </Button>
