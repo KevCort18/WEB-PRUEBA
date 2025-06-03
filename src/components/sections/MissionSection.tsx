@@ -1,6 +1,6 @@
 export function MissionSection() {
   return (
-    <section id="mision" className="py-16 md:py-24 px-4">
+    <section id="mision" className="py-12 md:py-20 px-4">
       <h2 className="text-foreground text-3xl md:text-4xl font-bold leading-tight tracking-[-0.015em] text-center mb-8">
         Nuestra Misión
       </h2>
