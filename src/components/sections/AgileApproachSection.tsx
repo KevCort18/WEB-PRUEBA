@@ -4,7 +4,7 @@ export function AgileApproachSection() {
       <h2 className="text-foreground text-3xl md:text-4xl font-bold leading-tight tracking-[-0.015em] text-center mb-8">
         Enfoque Ágil
       </h2>
-      <p className="text-muted-foreground text-lg font-normal leading-relaxed pt-1 text-center max-w-3xl mx-auto">
+      <p className="text-muted-foreground text-lg font-normal leading-relaxed text-center max-w-3xl mx-auto">
         Nuestro proceso de desarrollo ágil asegura que entreguemos valor rápidamente y nos adaptemos a sus necesidades en evolución. Trabajamos estrechamente con usted a lo largo del proceso, desde el concepto inicial hasta la implementación y más allá.
       </p>
     </section>
