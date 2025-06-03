@@ -16,11 +16,6 @@ interface SendContactResult {
   error?: string;
 }
 
-// Inicializa Resend con tu clave API.
-// ¡ASEGÚRATE de que RESEND_API_KEY esté configurada en tus variables de entorno!
-// Por ejemplo, en un archivo .env.local: RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxx
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function sendContactRequest(formData: unknown) : Promise<SendContactResult> {
   const parsedData = ContactFormSchema.safeParse(formData);
 
@@ -38,10 +33,10 @@ export async function sendContactRequest(formData: unknown) : Promise<SendContac
     return { success: false, error: 'Error de configuración del servidor. No se pudo enviar el correo.' };
   }
 
+  const resend = new Resend(process.env.RESEND_API_KEY);
+
   try {
     const mailOptions = {
-      // Reemplaza con tu email verificado en Resend o el email desde el que quieres enviar.
-      // Si usas un dominio personalizado, asegúrate de que esté verificado en Resend.
       from: 'onboarding@resend.dev', // O, por ejemplo, 'contacto@tu-dominio-verificado.com'
       to: 'comercial@hepha-code.com',
       subject: 'Nueva Solicitud de Contacto desde HephaCode.com',
@@ -66,7 +61,6 @@ export async function sendContactRequest(formData: unknown) : Promise<SendContac
 
   } catch (error: any) {
     console.error('Error inesperado al intentar enviar el correo:', error);
-    // Asegúrate de no exponer detalles sensibles del error al cliente.
     let errorMessage = 'Hubo un problema inesperado al procesar tu solicitud.';
     if (error.message) {
         errorMessage = `Error: ${error.message}`;
