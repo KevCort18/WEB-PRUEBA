@@ -20,7 +20,7 @@ export function HeroSection() {
       
       <div className="relative z-10 flex flex-col gap-6 @[480px]:gap-8 text-center items-center justify-center p-8 md:p-12 lg:p-16 w-full max-w-[960px] mx-auto">
         <h1
-          className="text-foreground text-5xl font-black leading-tight tracking-[-0.033em] @[480px]:text-6xl lg:text-7xl"
+          className="text-foreground text-5xl font-bold leading-tight tracking-[-0.033em] @[480px]:text-6xl lg:text-7xl"
         >
           Soluciones de IA para Pequeñas y Medianas Empresas
         </h1>
