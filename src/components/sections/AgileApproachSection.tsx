@@ -1,11 +1,11 @@
 export function AgileApproachSection() {
   return (
-    <section id="enfoque" className="py-16 md:py-24">
-      <h2 className="font-headline text-3xl font-bold text-center sm:text-4xl md:text-5xl mb-8">
+    <section id="enfoque" className="px-4 pb-3 pt-5">
+      <h2 className="text-foreground text-[22px] font-bold leading-tight tracking-[-0.015em] pb-3">
         Enfoque Ágil
       </h2>
-      <p className="font-body text-lg text-muted-foreground text-center max-w-3xl mx-auto sm:text-xl">
-        Nuestro proceso de desarrollo ágil se centra en la entrega rápida y continua de valor. Trabajamos en estrecha colaboración con usted, adaptándonos a sus necesidades cambiantes y asegurando que cada solución de IA no solo cumpla, sino que supere sus expectativas, desde la primera interacción.
+      <p className="text-foreground text-base font-normal leading-normal pt-1">
+        Nuestro proceso de desarrollo ágil asegura que entreguemos valor rápidamente y nos adaptemos a sus necesidades en evolución. Trabajamos estrechamente con usted a lo largo del proceso, desde el concepto inicial hasta la implementación y más allá.
       </p>
     </section>
   );

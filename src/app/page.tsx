@@ -10,9 +10,11 @@ export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       <Header />
-      <main className="flex-grow">
-        <HeroSection />
-        <div className="w-full max-w-[960px] mx-auto px-4 sm:px-6 lg:px-8 space-y-16 md:space-y-24">
+      {/* Adjusted padding to match HTML's px-40, reduced to px-10 for typical screen, py-5 */}
+      <main className="flex-grow px-4 sm:px-10 lg:px-20 xl:px-40 py-5 flex justify-center">
+        <div className="flex flex-col max-w-[960px] flex-1">
+          <HeroSection />
+          {/* Removed space-y, individual sections will handle their padding */}
           <MissionSection />
           <SolutionsSection />
           <AgileApproachSection />

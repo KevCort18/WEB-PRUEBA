@@ -18,19 +18,19 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container_ max-w-[1280px] mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container_ max-w-[1280px] mx-auto flex h-16 items-center justify-between px-10 py-3"> {/* Adjusted padding */}
         <Link href="/" className="flex items-center gap-2 text-foreground">
-          <HephaCodeLogoIcon className="h-8 w-8 text-primary" />
-          <span className="font-headline text-xl font-bold">HephaCode</span>
+          <HephaCodeLogoIcon className="h-6 w-6 text-primary" /> {/* Adjusted size to fit better */}
+          <span className="font-headline text-lg font-bold tracking-[-0.015em]">HephaCode</span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-6 text-sm">
+        <nav className="hidden md:flex items-center gap-9 text-sm"> {/* Adjusted gap */}
           {navLinks.map((link) => (
             <Link
               key={link.label}
               href={link.href}
-              className="font-medium text-foreground/70 transition-colors hover:text-foreground"
+              className="font-medium text-foreground transition-colors hover:text-foreground/80" // HTML uses text-white, this is text-foreground
             >
               {link.label}
             </Link>
@@ -40,7 +40,7 @@ export function Header() {
         <div className="flex items-center gap-4">
           <Button
             asChild
-            className="hidden md:inline-flex bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground rounded-md"
+            className="hidden md:inline-flex bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground rounded-xl h-10 px-4 text-sm font-bold leading-normal tracking-[0.015em]"
           >
             <Link href="#contacto">Comenzar</Link>
           </Button>
@@ -68,7 +68,10 @@ export function Header() {
                       {link.label}
                     </Link>
                   ))}
-                  <Button asChild className="mt-4 bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button 
+                    asChild 
+                    className="mt-4 bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground rounded-xl h-10 px-4 text-sm font-bold" 
+                    onClick={() => setIsMobileMenuOpen(false)}>
                      <Link href="#contacto">Comenzar</Link>
                   </Button>
                 </nav>

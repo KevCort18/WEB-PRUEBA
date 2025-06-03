@@ -1,11 +1,11 @@
 export function MissionSection() {
   return (
-    <section id="mision" className="py-16 md:py-24">
-      <h2 className="font-headline text-3xl font-bold text-center sm:text-4xl md:text-5xl mb-8">
+    <section id="mision" className="pt-5 pb-3 px-4">
+      <h2 className="text-foreground text-[22px] font-bold leading-tight tracking-[-0.015em] pb-3">
         Nuestra Misión
       </h2>
-      <p className="font-body text-lg text-muted-foreground text-center max-w-3xl mx-auto sm:text-xl">
-        En HephaCode, nuestra misión es democratizar el acceso a la Inteligencia Artificial para pequeñas y medianas empresas. Creemos en el poder de la IA para transformar negocios, y estamos dedicados a proveer soluciones personalizadas que impulsen el crecimiento, la eficiencia y la innovación de nuestros clientes.
+      <p className="text-foreground text-base font-normal leading-normal pt-1">
+        En HephaCode, nos dedicamos a democratizar el acceso a la IA. Creemos que las pequeñas y medianas empresas merecen las mismas ventajas tecnológicas que las grandes corporaciones. Nuestra misión es proporcionar soluciones de IA personalizadas que impulsen el crecimiento y la eficiencia, independientemente del tamaño o la industria.
       </p>
     </section>
   );
