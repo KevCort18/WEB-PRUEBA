@@ -11,7 +11,7 @@ export function HeroSection() {
         fill
         priority
         className="object-cover"
-        data-ai-hint="abstract technology network"
+        data-ai-hint="AI innovation"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/60 to-background" />
       
