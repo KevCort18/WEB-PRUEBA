@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import React from 'react';
 import { Loader2 } from 'lucide-react';
+import { sendContactRequest } from '@/app/actions/sendContactEmail';
 
 export function ContactSection() {
   const { toast } = useToast();
@@ -35,34 +36,46 @@ export function ContactSection() {
     e.preventDefault();
     setIsLoading(true);
 
-    const formData = {
+    const contactData = {
       email,
       projectDetails: preferDirectContact ? "" : projectDetails,
       contactPreference: preferDirectContact ? "Prefiere ser contactado directamente para brindar información." : "Información proporcionada en el formulario.",
     };
 
-    // Simulate sending email
-    console.log('Enviando correo a comercial@hepha-code.com con los siguientes datos:', formData);
-    
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
-
-    setIsLoading(false);
-    toast({
-      title: "Solicitud Enviada",
-      description: "¡Gracias por tu interés! Nos pondremos en contacto contigo pronto.",
-    });
-    
-    // Reset form
-    setEmail('');
-    setProjectDetails('');
-    setPreferDirectContact(false);
-    setIsEmailSubmitted(false);
+    try {
+      const result = await sendContactRequest(contactData);
+      
+      if (result.success) {
+        toast({
+          title: "Solicitud Enviada",
+          description: "¡Gracias por tu interés! Nos pondremos en contacto contigo pronto.",
+        });
+        // Reset form
+        setEmail('');
+        setProjectDetails('');
+        setPreferDirectContact(false);
+        setIsEmailSubmitted(false);
+      } else {
+        toast({
+          title: "Error al Enviar",
+          description: result.error || "Hubo un problema al enviar tu solicitud. Intenta de nuevo.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error Inesperado",
+        description: "Ocurrió un error inesperado. Por favor, intenta más tarde.",
+        variant: "destructive",
+      });
+      console.error("Error en handleFullFormSubmit:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleBackToEmail = () => {
     setIsEmailSubmitted(false);
-    // Keep email, projectDetails, and preferDirectContact as they are
   };
 
   return (
