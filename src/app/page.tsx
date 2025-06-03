@@ -11,11 +11,11 @@ export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       <Header />
-      {/* Adjusted main to stack children vertically and center them */}
-      <main className="flex-grow px-4 sm:px-10 lg:px-20 xl:px-40 py-5 flex flex-col items-center">
-        <HeroSection /> {/* HeroSection is now a direct child of main */}
-        {/* This div constrains the rest of the content */}
-        <div className="flex flex-col max-w-[960px] flex-1 w-full">
+      {/* Main content area - no horizontal padding on main to allow HeroSection to be full-width */}
+      <main className="flex-grow py-5 flex flex-col items-center w-full">
+        <HeroSection /> {/* HeroSection's root is w-full, will span its parent (main) */}
+        {/* This div provides padding and max-width for the content SECTIONS below the hero */}
+        <div className="flex flex-col max-w-[960px] w-full mx-auto px-4 sm:px-10 lg:px-20 xl:px-40">
           <MissionSection />
           <SolutionsSection />
           <AgileApproachSection />
