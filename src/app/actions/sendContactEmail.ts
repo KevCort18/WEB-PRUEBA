@@ -2,6 +2,7 @@
 'use server';
 
 import { z } from 'zod';
+import { Resend } from 'resend';
 
 // Define un esquema para la validación de los datos del formulario.
 const ContactFormSchema = z.object({
@@ -15,11 +16,15 @@ interface SendContactResult {
   error?: string;
 }
 
+// Inicializa Resend con tu clave API.
+// ¡ASEGÚRATE de que RESEND_API_KEY esté configurada en tus variables de entorno!
+// Por ejemplo, en un archivo .env.local: RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxx
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 export async function sendContactRequest(formData: unknown) : Promise<SendContactResult> {
   const parsedData = ContactFormSchema.safeParse(formData);
 
   if (!parsedData.success) {
-    // Extraer y formatear los errores de Zod para una mejor presentación
     const errorMessages = parsedData.error.errors.map(err => `${err.path.join('.')}: ${err.message}`).join(', ');
     console.error('Datos de formulario inválidos:', errorMessages);
     return { success: false, error: `Datos de formulario inválidos: ${errorMessages}` };
@@ -27,20 +32,17 @@ export async function sendContactRequest(formData: unknown) : Promise<SendContac
 
   const { email, projectDetails, contactPreference } = parsedData.data;
 
-  // Aquí es donde integrarías tu servicio de envío de correo.
-  // Por ejemplo, usando Resend, SendGrid, AWS SES, o Nodemailer con un proveedor SMTP.
-  // Necesitarás instalar el SDK correspondiente (ej: `npm install resend`) y configurar
-  // las variables de entorno con tus claves API.
-
-  // ---- INICIO: Lógica de envío de email (EJEMPLO CONCEPTUAL - NO FUNCIONAL SIN CONFIGURACIÓN) ----
-  /*
-  // Ejemplo con Resend (necesitas instalar `resend` y configurar RESEND_API_KEY en .env)
-  // import { Resend } from 'resend';
-  // const resend = new Resend(process.env.RESEND_API_KEY);
+  // Verifica que la clave API de Resend esté disponible
+  if (!process.env.RESEND_API_KEY) {
+    console.error('Error: La variable de entorno RESEND_API_KEY no está configurada.');
+    return { success: false, error: 'Error de configuración del servidor. No se pudo enviar el correo.' };
+  }
 
   try {
     const mailOptions = {
-      from: 'tu_email_verificado@tudominio.com', // Reemplaza con tu email verificado
+      // Reemplaza con tu email verificado en Resend o el email desde el que quieres enviar.
+      // Si usas un dominio personalizado, asegúrate de que esté verificado en Resend.
+      from: 'onboarding@resend.dev', // O, por ejemplo, 'contacto@tu-dominio-verificado.com'
       to: 'comercial@hepha-code.com',
       subject: 'Nueva Solicitud de Contacto desde HephaCode.com',
       html: `
@@ -52,42 +54,23 @@ export async function sendContactRequest(formData: unknown) : Promise<SendContac
       `,
     };
 
-    // Descomenta la siguiente línea para enviar realmente el email con Resend:
-    // await resend.emails.send(mailOptions);
+    const { data, error } = await resend.emails.send(mailOptions);
 
-    console.log('=== Solicitud de Contacto (Simulación de Envío) ===');
-    console.log('Destinatario: comercial@hepha-code.com');
-    console.log('Asunto: Nueva Solicitud de Contacto desde HephaCode.com');
-    console.log('Email:', email);
-    console.log('Detalles del Proyecto:', projectDetails || 'No proporcionados');
-    console.log('Preferencia de Contacto:', contactPreference);
-    console.log('=================================================');
-    
-    // Simulación de demora de red
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    console.log('Simulación: Correo enviado exitosamente.');
+    if (error) {
+      console.error('Error al enviar el correo con Resend:', error);
+      return { success: false, error: `Hubo un problema al enviar tu solicitud: ${error.message}` };
+    }
 
+    console.log('Correo enviado exitosamente a comercial@hepha-code.com. ID:', data?.id);
     return { success: true };
 
-  } catch (error) {
-    console.error('Error al intentar enviar el correo (simulación o real):', error);
-    return { success: false, error: 'Hubo un problema al procesar tu solicitud.' };
+  } catch (error: any) {
+    console.error('Error inesperado al intentar enviar el correo:', error);
+    // Asegúrate de no exponer detalles sensibles del error al cliente.
+    let errorMessage = 'Hubo un problema inesperado al procesar tu solicitud.';
+    if (error.message) {
+        errorMessage = `Error: ${error.message}`;
+    }
+    return { success: false, error: errorMessage };
   }
-  */
-  // ---- FIN: Lógica de envío de email ----
-  
-  // Por ahora, solo simulamos el envío y registramos en consola:
-  console.log('=== Solicitud de Contacto Recibida (Simulación) ===');
-  console.log('Destinatario: comercial@hepha-code.com');
-  console.log('Asunto: Nueva Solicitud de Contacto desde HephaCode.com');
-  console.log('Email:', email);
-  console.log('Detalles del Proyecto:', projectDetails || 'No proporcionados');
-  console.log('Preferencia de Contacto:', contactPreference);
-  console.log('=================================================');
-  
-  // Simulación de demora de red
-  await new Promise(resolve => setTimeout(resolve, 1500));
-  console.log('Simulación: Correo "enviado" a comercial@hepha-code.com');
-
-  return { success: true };
 }
