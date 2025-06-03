@@ -1,17 +1,25 @@
+
 'use client';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import React from 'react';
+import { Loader2 } from 'lucide-react';
 
 export function ContactSection() {
   const { toast } = useToast();
   const [email, setEmail] = React.useState('');
+  const [projectDetails, setProjectDetails] = React.useState('');
+  const [preferDirectContact, setPreferDirectContact] = React.useState(false);
+  const [isEmailSubmitted, setIsEmailSubmitted] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleEmailSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Basic email validation
     if (!email || !/\S+@\S+\.\S+/.test(email)) {
       toast({
         title: "Correo Inválido",
@@ -20,14 +28,41 @@ export function ContactSection() {
       });
       return;
     }
+    setIsEmailSubmitted(true);
+  };
+
+  const handleFullFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    const formData = {
+      email,
+      projectDetails: preferDirectContact ? "" : projectDetails,
+      contactPreference: preferDirectContact ? "Prefiere ser contactado directamente para brindar información." : "Información proporcionada en el formulario.",
+    };
+
+    // Simulate sending email
+    console.log('Enviando correo a comercial@hepha-code.com con los siguientes datos:', formData);
     
-    // Here you would typically send the email to your backend
-    console.log('Email submitted:', email);
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    setIsLoading(false);
     toast({
-      title: "Mensaje Enviado",
-      description: "Gracias por contactarnos. Nos pondremos en contacto pronto.",
+      title: "Solicitud Enviada",
+      description: "¡Gracias por tu interés! Nos pondremos en contacto contigo pronto.",
     });
-    setEmail(''); // Clear input after submission
+    
+    // Reset form
+    setEmail('');
+    setProjectDetails('');
+    setPreferDirectContact(false);
+    setIsEmailSubmitted(false);
+  };
+
+  const handleBackToEmail = () => {
+    setIsEmailSubmitted(false);
+    // Keep email, projectDetails, and preferDirectContact as they are
   };
 
   return (
@@ -36,23 +71,86 @@ export function ContactSection() {
         <h2 className="font-headline text-3xl font-bold text-center sm:text-4xl md:text-5xl mb-8">
           Contacto
         </h2>
-        <form onSubmit={handleSubmit} className="max-w-xl mx-auto flex flex-col sm:flex-row items-center gap-4">
-          <Input
-            type="email"
-            placeholder="Su Correo Electrónico"
-            className="flex-grow bg-input text-foreground placeholder:text-muted-foreground rounded-md h-12 px-4 text-base"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            aria-label="Su Correo Electrónico"
-          />
-          <Button 
-            type="submit"
-            size="lg"
-            className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground rounded-md h-12 px-8 text-base font-semibold"
-          >
-            Enviar
-          </Button>
-        </form>
+        
+        {!isEmailSubmitted ? (
+          <form onSubmit={handleEmailSubmit} className="max-w-xl mx-auto flex flex-col sm:flex-row items-center gap-4">
+            <Input
+              type="email"
+              placeholder="Su Correo Electrónico"
+              className="flex-grow bg-input text-foreground placeholder:text-muted-foreground rounded-md h-12 px-4 text-base"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              aria-label="Su Correo Electrónico"
+              disabled={isLoading}
+            />
+            <Button 
+              type="submit"
+              size="lg"
+              className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground rounded-md h-12 px-8 text-base font-semibold"
+              disabled={isLoading}
+            >
+              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+              Continuar
+            </Button>
+          </form>
+        ) : (
+          <form onSubmit={handleFullFormSubmit} className="max-w-xl mx-auto space-y-6">
+            <div>
+              <p className="text-muted-foreground mb-1">Correo electrónico:</p>
+              <p className="font-semibold text-foreground">{email}</p>
+            </div>
+
+            <div>
+              <Label htmlFor="projectDetails" className="block text-sm font-medium text-muted-foreground mb-1">
+                Cuéntanos más sobre tu proyecto (opcional):
+              </Label>
+              <Textarea
+                id="projectDetails"
+                placeholder="Describe brevemente tu idea, necesidades o el problema que buscas resolver..."
+                className="bg-input text-foreground placeholder:text-muted-foreground rounded-md text-base min-h-[120px]"
+                value={projectDetails}
+                onChange={(e) => setProjectDetails(e.target.value)}
+                disabled={preferDirectContact || isLoading}
+                aria-label="Detalles del proyecto"
+              />
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="preferDirectContact"
+                checked={preferDirectContact}
+                onCheckedChange={(checked) => setPreferDirectContact(checked as boolean)}
+                disabled={isLoading}
+                aria-label="Prefiero que me contacten para brindar esta información"
+              />
+              <Label htmlFor="preferDirectContact" className="text-sm text-muted-foreground cursor-pointer">
+                Prefiero que me contacten para brindar esta información.
+              </Label>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button 
+                type="button"
+                variant="outline"
+                size="lg"
+                onClick={handleBackToEmail}
+                className="w-full sm:w-auto rounded-md h-12 px-8 text-base font-semibold"
+                disabled={isLoading}
+              >
+                Modificar Email
+              </Button>
+              <Button 
+                type="submit"
+                size="lg"
+                className="w-full sm:flex-grow bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground rounded-md h-12 px-8 text-base font-semibold"
+                disabled={isLoading}
+              >
+                {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                Enviar Solicitud
+              </Button>
+            </div>
+          </form>
+        )}
       </div>
     </section>
   );
